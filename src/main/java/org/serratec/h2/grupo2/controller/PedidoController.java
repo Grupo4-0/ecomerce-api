@@ -49,9 +49,9 @@ public class PedidoController {
     }
     
     //EXLUIR UM ITEM DO PEDIDO
-    @DeleteMapping("/excluir/item/{itemId}")
-    public PedidoAndamentoResponseDto excluirItem(@PathVariable Long itemId) {
-    	return service.excluirItem(itemId);
+    @DeleteMapping("/excluir/item/{idProduto}")
+    public PedidoAndamentoResponseDto excluirItem(@PathVariable Long idProduto) {
+    	return service.excluirItem(idProduto);
     }
     
     //CANCELAMENTO DE UM PEDIDO QUE ESTAVA EM ROTA DE ENTREGA + E-MAIL

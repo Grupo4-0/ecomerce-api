@@ -375,23 +375,22 @@ public class PedidoService {
 	}
 	
 	//EXLUIR UM ITEM DO PEDIDO
-	public PedidoAndamentoResponseDto excluirItem(Long itemId) {
+	public PedidoAndamentoResponseDto excluirItem(Long idProduto) {
 	    String email = SecurityContextHolder.getContext().getAuthentication().getName();
-	    log.info("Usuário '{}' solicitou a exclusão do item de ID {}", email, itemId);
 
 	    ItemPedido item = itemRepository
-	        .findByIdAndPedidoStatusAndPedidoClienteContaEmail(itemId, StatusPedido.EM_ANDAMENTO, email)
+	        .findByProdutoIdAndPedidoStatusAndPedidoClienteContaEmail(idProduto, StatusPedido.EM_ANDAMENTO, email)
 	        .orElseThrow(() -> {
-	            log.warn("Item com ID {} não encontrado no pedido em andamento do usuário '{}'", itemId, email);
+	            log.warn("Item com ID {} não encontrado no pedido em andamento do usuário '{}'", idProduto, email);
 	            return new EntityNotFoundException("Produto não se encontra em nenhum pedido em andamento.");
 	        });
 
 	    Pedido pedido = item.getPedido();
 
-	    itemRepository.deleteById(itemId);
-	    log.info("Item de ID {} removido com sucesso do pedido ID {}", itemId, pedido.getId());
+	    itemRepository.deleteById(item.getId());
+	    log.info("Item de ID {} removido com sucesso do pedido ID {}", idProduto, pedido.getId());
 
-	    pedido.getItens().removeIf(i -> i.getId().equals(itemId));
+	    pedido.getItens().removeIf(i -> i.getId().equals(item.getId()));
 	    pedido.setValorFrete(calcularFrete(pedido.getItens().size()));
 	    pedido.setPrecoTotal(valorTotal(pedido));
 	    pedidoRepository.save(pedido);
