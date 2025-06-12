@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import org.serratec.h2.grupo2.enuns.NivelAcesso;
 import org.serratec.h2.grupo2.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -83,6 +84,11 @@ public class JwtService {
     public <T> T extrairClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extrairTodosClaims(token);
         return claimsResolver.apply(claims);
+    }
+    
+    public boolean ehCliente(String token) {
+        List<String> autorizacoes = extrairAuthorities(token);
+        return autorizacoes.contains("ROLE_" + NivelAcesso.NENHUM.name());
     }
     
     private Claims extrairTodosClaims(String token) {
