@@ -4,6 +4,7 @@ import java.io.IOException;
 import org.serratec.h2.grupo2.security.userDetails.ContaUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 	private ContaUserService userService;
 	
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
 		
 		/* 1. PEGA DENTRO DO HEADER A AUTHORIZATION, QUE CONSISTE NUM HEADER COM 
 		 * UM SUFIXO BEARER NO TOKEN DE ACESSO. 

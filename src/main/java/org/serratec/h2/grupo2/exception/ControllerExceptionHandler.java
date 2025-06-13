@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.lang.NonNull;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,10 +27,10 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
 	//QUANDO A FALHAS EM VALIDAÇÕES DO TIPO @VALID, HTTP 400
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-	                                                              HttpHeaders headers,
-	                                                              HttpStatusCode status,
-	                                                              WebRequest request) {
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(@NonNull HttpMessageNotReadableException ex,
+	                                                              @NonNull HttpHeaders headers,
+	                                                              @NonNull HttpStatusCode status,
+	                                                              @NonNull WebRequest request) {
 	    ErroResposta erro = new ErroResposta(
 	            status.value(),
 	            "Requisição inválida",
@@ -84,10 +85,10 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
     
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatusCode status,
-                                                                  WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull MethodArgumentNotValidException ex,
+                                                                  @NonNull HttpHeaders headers,
+                                                                  @NonNull HttpStatusCode status,
+                                                                  @NonNull WebRequest request) {
 
         List<String> erros = new ArrayList<>();
 
