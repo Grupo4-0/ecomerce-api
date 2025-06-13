@@ -46,6 +46,7 @@ public class WebSecurityConfig {
 				)
 		
             .authorizeHttpRequests(auth -> auth
+            	.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/login").permitAll()
 
                 //ACESSO DO CLIENTE
@@ -54,11 +55,12 @@ public class WebSecurityConfig {
                 .requestMatchers("/pedidos/diminuir/**").hasAnyRole("NENHUM")
                 .requestMatchers("/pedidos/aumentar/**").hasAnyRole("NENHUM")
                 .requestMatchers("/pedidos/cancelar/**").hasAnyRole("NENHUM")
-                .requestMatchers("/pedidos/excluir/item/**").hasAnyRole("NENHUM")
+                .requestMatchers(HttpMethod.DELETE, "/pedidos/excluir/item").hasRole("NENHUM")
                 .requestMatchers("/pedidos/listar-pedidos-entregues").hasAnyRole("NENHUM")
                 .requestMatchers("/pedidos/listar-pedidos-finalizados").hasAnyRole("NENHUM")
                 .requestMatchers("/pedidos/listar-pedidos-cancelados").hasAnyRole("NENHUM")
                 .requestMatchers("/cliente/atualizacaoParcial").hasAnyRole("NENHUM")
+                .requestMatchers("/pedidos/listar-pedidos-andamento").hasAnyRole("NENHUM")
                 
                 //BAIXO NIVEL DE ACESSO
                 .requestMatchers("/funcionario/atualizarCadastro").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
@@ -76,7 +78,6 @@ public class WebSecurityConfig {
                 .requestMatchers("/pedidos/finalizados").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
                 .requestMatchers("/pedidos/em-entrega").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
                 .requestMatchers("/pedidos/cancelados").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
-                .requestMatchers("/pedidos/listar-pedidos-andamento").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
                 .requestMatchers(HttpMethod.DELETE, "/produtos/**").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
                 .requestMatchers(HttpMethod.PUT, "/produtos/**").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
                 .requestMatchers(HttpMethod.PUT, "/produtos/**").hasAnyRole("BAIXO", "MEDIO", "ALTO", "TOTAL")
@@ -115,7 +116,7 @@ public class WebSecurityConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") 
                         .allowedOrigins("http://localhost:5173") 
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
             }

@@ -262,6 +262,15 @@ public class PedidoService {
 	}
 	
 	//CONFIRMAR ENTREGA DO PEDIDO 
+	
+	//RETORNAR O PEDIDO ATUAL
+	public List<PedidoAndamentoResponseDto> pedidoAtual() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        log.info("Listando pedidos em entrega para {}", email);
+
+        List<Pedido> pedidos = pedidoRepository.findAllByClienteContaEmailAndStatus(email, StatusPedido.EM_ANDAMENTO);
+        return mapper.toListResponse(pedidos);
+    }
 
 	//CANCELAR PEDIDO
     public ResponseEntity<String> cancelarPedido(Long idPedido) {
@@ -296,7 +305,6 @@ public class PedidoService {
         List<Pedido> pedidos = pedidoRepository.findAllByClienteContaEmailAndStatus(email, StatusPedido.CONCLUIDO);
         return mapper.toListResponse(pedidos);
     }
-
 	
 	//LISTAR PEDIDOS CANCELADOS
 	public List<PedidoAndamentoResponseDto> pedidosCancelados() {
@@ -374,7 +382,7 @@ public class PedidoService {
 	    }
 	}
 	
-	//EXLUIR UM ITEM DO PEDIDO
+	//EXLUIR UM ITEM DO PEDIDO - 
 	public PedidoAndamentoResponseDto excluirItem(Long idProduto) {
 	    String email = SecurityContextHolder.getContext().getAuthentication().getName();
 

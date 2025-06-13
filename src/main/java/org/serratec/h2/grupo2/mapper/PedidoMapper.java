@@ -20,6 +20,7 @@ public class PedidoMapper {
 		ItemResponseDto itemResponse = new ItemResponseDto();
 		
 		itemResponse.setCodigo(item.getId());
+		itemResponse.setCodigoProduto(item.getProduto().getId());
 		itemResponse.setNome(item.getProduto().getNome());
 		itemResponse.setPrecoTotal(item.getPrecoTotal());
 		itemResponse.setPrecoUnitario(item.getPrecoUnitario());

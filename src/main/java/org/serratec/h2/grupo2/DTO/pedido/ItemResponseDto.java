@@ -13,6 +13,7 @@ import lombok.Setter;
 public class ItemResponseDto {
 
 	private Long codigo;
+	private Long codigoProduto;
 	private String nome;
 	private BigDecimal precoUnitario;
 	private Integer quantidade;
