@@ -51,4 +51,9 @@ public class CategoriaController {
         categoriaService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/nome/{id}")
+    public String categoriaPorid (@PathVariable Long id) {
+    	return categoriaService.categoriaPorid(id);
+    }
 }

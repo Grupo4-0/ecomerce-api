@@ -53,4 +53,10 @@ public class CategoriaService {
         }
         categoriaRepository.deleteById(id);
     }
+    
+    public String categoriaPorid (Long id) {
+    	Categoria categoria = categoriaRepository.findById(id).orElseThrow();
+    	String nome = categoria.getNome();
+    	return nome;
+    }
 }

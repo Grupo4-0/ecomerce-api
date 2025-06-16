@@ -49,12 +49,10 @@ public class JwtService {
 	}
 
     //VERIFICA SE O TOKEN É CORRETO
-    public boolean tokenValido(String token) {
-        final String email = extrairEmail(token);
-        if(repository.existsByEmail(email) && !tokenExpirado(token)) {
-        	return true;
-        } else { return false; }
-    }
+	public boolean tokenValido(String token) {
+	    final String email = extrairEmail(token);
+	    return repository.existsByEmail(email) && !tokenExpirado(token);
+	}
     
     //FUNÇÕES IMPORTANTE PRA VALIDAÇÃO DO TOKEN
     
