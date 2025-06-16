@@ -60,6 +60,12 @@ public class PedidoController {
     	return service.cancelarPedido(idPedido);
     }
     
+  //LISTAR PEDIDOS EM ENTREGA DO PRÓPRIO CLIENTE
+    @GetMapping("/atual")
+    public List<PedidoAndamentoResponseDto> pedidosAtual() {
+    	return service.pedidoAtual();
+    }
+    
     //LISTAR PEDIDOS EM ENTREGA DO PRÓPRIO CLIENTE
     @GetMapping("/em-entrega")
     public List<PedidoAndamentoResponseDto> pedidosEmEntrega() {

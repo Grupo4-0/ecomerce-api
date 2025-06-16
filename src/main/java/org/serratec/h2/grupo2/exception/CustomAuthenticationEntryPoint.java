@@ -18,6 +18,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
 
+    	response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    	response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
         response.setContentType("application/json");
 

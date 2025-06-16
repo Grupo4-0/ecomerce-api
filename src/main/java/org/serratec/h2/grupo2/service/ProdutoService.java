@@ -150,5 +150,17 @@ public class ProdutoService {
 				.map(produtoMapper::toResponse)
 				.toList();
 	}
+	
+	//MÉTODO PRA LISTAR PRODUTOS PELO NOME
+	public List<ProdutoResponseDTO> pesquisarProdutos(String nome) {
+		List<Produto> produtos = produtoRepository.findByNomeContainingIgnoreCase(nome);
+		return produtoMapper.toListResponse(produtos);
+	}
+	
+	//METODO PRA LISTAR PRODUTOS PELA CATEGORIA
+	public List<ProdutoResponseDTO> listaPorCategoria (String nome) {
+		List<Produto> produto = produtoRepository.findByCategoriaNomeIgnoreCase(nome);
+		return produtoMapper.toListResponse(produto);
+	}
 }
 

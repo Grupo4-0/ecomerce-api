@@ -146,4 +146,15 @@ public class ProdutoController {
  	    List<ProdutoResponseDTO> promocoes = service.listarPromocoes();
  	    return ResponseEntity.ok(promocoes);
  	}
+ 	
+ 	//GET - LISTAR PRODUTOS PELO NOME
+ 	@GetMapping("/pesquisa/{nome}")
+ 	public List<ProdutoResponseDTO> pesquisarProdutos(@PathVariable String nome) {
+ 		return service.pesquisarProdutos(nome);
+ 	}
+ 	
+ 	@GetMapping("/pesquisaPorCategoria/{nome}")
+ 	public List<ProdutoResponseDTO> listaPorCategoria (@PathVariable String nome) {
+ 		return service.listaPorCategoria(nome);
+ 	}
 }

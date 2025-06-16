@@ -4,6 +4,7 @@ import org.serratec.h2.grupo2.security.tokenAcesso.JwtService;
 import org.serratec.h2.grupo2.service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,11 @@ public class ContaController {
 	@GetMapping("/ehCliente")
 	public boolean ehCliente(@RequestParam String token) {
 		return jwt.ehCliente(token);
+	}
+	
+	@GetMapping("/tokenValido/{token}")
+	public boolean tokenValido(@PathVariable String token) {
+		return jwt.tokenValido(token);
 	}
 	
 }

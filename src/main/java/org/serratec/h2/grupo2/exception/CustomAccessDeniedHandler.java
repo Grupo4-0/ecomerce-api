@@ -16,6 +16,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
+    	response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    	response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
         response.setContentType("application/json");
 
